@@ -5,9 +5,9 @@ const canvas = document.getElementById("waveform");
 const ctx = canvas.getContext("2d");
 const recordingsContainer = document.getElementById("recordingsContainer");
 
-/* =====================
-   STATE VARIABLES
-===================== */
+
+//    STATE VARIABLES
+
 let mediaRecorder;
 let audioChunks = [];
 let isRecording = false;
@@ -26,9 +26,9 @@ let dataArray;
 let smoothVolume = 0;
 let phase = 0;
 
-/* =====================
-   TIMER FUNCTIONS
-===================== */
+
+//    TIMER FUNCTIONS
+
 function updateTimer() {
   secondsElapsed++;
   const minutes = String(Math.floor(secondsElapsed / 60)).padStart(2, "0");
@@ -36,9 +36,9 @@ function updateTimer() {
   timerEl.textContent = `${minutes}:${seconds}`;
 }
 
-/* =====================
-   RECORD BUTTON
-===================== */
+
+//    RECORD BUTTON
+
 recordBtn.addEventListener("click", async () => {
   if (!isRecording) {
     startRecording();
@@ -47,9 +47,9 @@ recordBtn.addEventListener("click", async () => {
   }
 });
 
-/* =====================
-   START RECORDING
-===================== */
+
+//    START RECORDING
+
 async function startRecording() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
@@ -94,9 +94,9 @@ async function startRecording() {
   }
 }
 
-/* =====================
-   STOP RECORDING
-===================== */
+
+//    STOP RECORDING
+
 function stopRecording() {
   mediaRecorder.stop();
   isRecording = false;
@@ -118,9 +118,9 @@ function stopRecording() {
   if (audioContext) audioContext.close();
 }
 
-/* =====================
-   CREATE RECORDING ITEM
-===================== */
+
+//    CREATE RECORDING ITEM
+
 function createRecording() {
   const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
   const audioURL = URL.createObjectURL(audioBlob);
@@ -141,9 +141,9 @@ function createRecording() {
   recordingsList.appendChild(li);
 }
 
-/* =====================
-   WAVEFORM HELPERS
-===================== */
+
+//    WAVEFORM HELPERS
+
 function getVolume() {
   analyser.getByteFrequencyData(dataArray);
   let sum = 0;
@@ -158,9 +158,9 @@ function smooth(target) {
   return smoothVolume;
 }
 
-/* =====================
-   PILL WAVEFORM DRAW
-===================== */
+
+//    PILL WAVEFORM DRAW
+
 function drawPillWave() {
   animationId = requestAnimationFrame(drawPillWave);
 
@@ -168,7 +168,7 @@ function drawPillWave() {
   const amplitude = Math.min(volume / 2, canvas.height / 2.5);
 
   ctx.clearRect(0, 0, canvas.width, canvas.height);
-  ctx.fillStyle = "#9bb7f5";
+  ctx.fillStyle = "#7eaafad4";
 
   ctx.beginPath();
   ctx.moveTo(0, canvas.height / 2);
@@ -185,3 +185,9 @@ function drawPillWave() {
 
   phase += 2;
 }
+
+recordingsList.appendChild(li);
+recordingsList.parentElement.scrollTo({
+  top: recordingsList.parentElement.scrollHeight,
+  behavior: "smooth"
+});
