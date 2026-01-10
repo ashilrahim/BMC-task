@@ -13,10 +13,14 @@ body {
 }
 
 .app {
+  position: relative;
   background: #fff;
   padding: 24px 32px;
   border-radius: 16px;
-  width: 420px;
+  width: 650px;
+  max-width: 650px;
+  height: fit-content;
+  min-height: 100%;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -24,14 +28,22 @@ body {
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-#timer {
-  font-size: 18px;
-  margin-bottom: 12px;
-  color: #555;
-}
 
+
+#timer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 16px;
+  font-weight: 500;
+  color: #3b3b3b;
+  pointer-events: none;
+  z-index: 2;
+}
 .wave-container {
-  width: 100%;
+  position: relative;
+  width: 350px;
   height: 80px;
   background: #e9eefb;
   border-radius: 40px;
@@ -39,16 +51,34 @@ body {
   margin-bottom: 16px;
 }
 
+#waveform {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
 canvas {
   width: 100%;
   height: 100%;
+}
+
+.recording-section {
+  position: sticky;
+  bottom: 0;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+
 }
 
 .record-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: fit-content;
+  width: 350px;
   height: 60px;
   padding: 20px 40px;
   border: 1px solid #000;
@@ -65,7 +95,10 @@ canvas {
 }
 
 .recordings {
-  text-align: left;
+  text-align: center;
+  width: 100%;
+  padding-right: 6px;
+  padding-bottom: 140px;
 }
 
 .recordings.disabled {
@@ -73,7 +106,6 @@ canvas {
   pointer-events: none;
   user-select: none;
 }
-
 
 .recordings ul {
   list-style: none;
