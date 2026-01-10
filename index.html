@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Audio Recorder</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <h2>Audio Recorder</h2>
+
+      <!-- Timer -->
+      <div id="timer">00:00</div>
+
+      <!-- Waveform Canvas (used later) -->
+      <div class="wave-container">
+        <canvas id="waveform" width="400" height="80"></canvas>
+      </div>
+
+      <!-- Record Button -->
+      <button id="recordBtn" class="record-btn">● Record</button>
+
+      <div class="recordings" id="recordingsContainer">
+        <h3>Saved Recordings</h3>
+        <ul id="recordingsList"></ul>
+      </div>
+    </div>
+
+    <script src="script.js"></script>
+  </body>
+</html>
