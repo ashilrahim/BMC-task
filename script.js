@@ -136,6 +136,7 @@ async function createRecording() {
 
 function renderRecording(recording) {
   const li = document.createElement("li");
+  li.dataset.id = recording.id;
 
   const audio = document.createElement("audio");
   audio.src = recording.audio;
@@ -146,8 +147,28 @@ function renderRecording(recording) {
   const label = document.createElement("span");
   label.textContent = recording.duration;
 
+  const deleteBtn = document.createElement("button");
+
+  deleteBtn.className = "delete-btn";
+  deleteBtn.innerHTML = deleteBtn.innerHTML = `
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+       stroke="currentColor" stroke-width="2"
+       stroke-linecap="round" stroke-linejoin="round">
+    <polyline points="3 6 5 6 21 6"></polyline>
+    <path d="M19 6l-1 14H6L5 6"></path>
+    <path d="M10 11v6"></path>
+    <path d="M14 11v6"></path>
+    <path d="M9 6V4h6v2"></path>
+  </svg>
+`;
+
+  deleteBtn.addEventListener("click", () => {
+    deleteRecording(recording.id);
+  });
+
   li.appendChild(audio);
   li.appendChild(label);
+  li.appendChild(deleteBtn);
   recordingsList.appendChild(li);
 
   // auto-scroll to newest
@@ -155,6 +176,16 @@ function renderRecording(recording) {
     top: recordingsList.parentElement.scrollHeight,
     behavior: "smooth",
   });
+}
+
+function deleteRecording(id) {
+  // Update localStorage
+  const recordings = getStoredRecordings().filter((rec) => rec.id !== id);
+  saveStoredRecordings(recordings);
+
+  // Remove from UI
+  const li = recordingsList.querySelector(`[data-id="${id}"]`);
+  if (li) li.remove();
 }
 
 //    WAVEFORM HELPERS
@@ -199,7 +230,6 @@ function drawPillWave() {
 
   phase += 2;
 }
-
 
 // localstorage
 

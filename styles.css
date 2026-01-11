@@ -150,3 +150,15 @@ canvas {
   align-items: center;
   margin-bottom: 8px;
 }
+
+
+.delete-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.delete-btn:hover {
+  opacity: 0.7;
+}
