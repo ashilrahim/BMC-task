@@ -5,7 +5,6 @@ const canvas = document.getElementById("waveform");
 const ctx = canvas.getContext("2d");
 const recordingsContainer = document.getElementById("recordingsContainer");
 
-
 //    STATE VARIABLES
 
 let mediaRecorder;
@@ -26,7 +25,6 @@ let dataArray;
 let smoothVolume = 0;
 let phase = 0;
 
-
 //    TIMER FUNCTIONS
 
 function updateTimer() {
@@ -35,7 +33,6 @@ function updateTimer() {
   const seconds = String(secondsElapsed % 60).padStart(2, "0");
   timerEl.textContent = `${minutes}:${seconds}`;
 }
-
 
 //    RECORD BUTTON
 
@@ -46,7 +43,6 @@ recordBtn.addEventListener("click", async () => {
     stopRecording();
   }
 });
-
 
 //    START RECORDING
 
@@ -94,7 +90,6 @@ async function startRecording() {
   }
 }
 
-
 //    STOP RECORDING
 
 function stopRecording() {
@@ -109,7 +104,6 @@ function stopRecording() {
   recordBtn.textContent = "● Record";
   recordingsContainer.classList.remove("disabled");
 
-
   clearInterval(timerInterval);
 
   cancelAnimationFrame(animationId);
@@ -118,29 +112,50 @@ function stopRecording() {
   if (audioContext) audioContext.close();
 }
 
-
 //    CREATE RECORDING ITEM
 
-function createRecording() {
+async function createRecording() {
   const audioBlob = new Blob(audioChunks, { type: "audio/webm" });
-  const audioURL = URL.createObjectURL(audioBlob);
+  const base64Audio = await blobToBase64(audioBlob);
 
+  const recording = {
+    id: Date.now(),
+    audio: base64Audio,
+    duration: timerEl.textContent,
+    timestamp: new Date().toLocaleString(),
+  };
+
+  const recordings = getStoredRecordings();
+  recordings.push(recording);
+  saveStoredRecordings(recordings);
+
+  renderRecording(recording);
+}
+
+// To render existing recordings on page load
+
+function renderRecording(recording) {
   const li = document.createElement("li");
 
   const audio = document.createElement("audio");
-  audio.src = audioURL;
+  audio.src = recording.audio;
   audio.controls = true;
 
   activeAudios.push(audio);
 
   const label = document.createElement("span");
-  label.textContent = timerEl.textContent;
+  label.textContent = recording.duration;
 
   li.appendChild(audio);
   li.appendChild(label);
   recordingsList.appendChild(li);
-}
 
+  // auto-scroll to newest
+  recordingsList.parentElement.scrollTo({
+    top: recordingsList.parentElement.scrollHeight,
+    behavior: "smooth",
+  });
+}
 
 //    WAVEFORM HELPERS
 
@@ -157,7 +172,6 @@ function smooth(target) {
   smoothVolume += (target - smoothVolume) * 0.1;
   return smoothVolume;
 }
-
 
 //    PILL WAVEFORM DRAW
 
@@ -186,8 +200,26 @@ function drawPillWave() {
   phase += 2;
 }
 
-recordingsList.appendChild(li);
-recordingsList.parentElement.scrollTo({
-  top: recordingsList.parentElement.scrollHeight,
-  behavior: "smooth"
+
+// localstorage
+
+function getStoredRecordings() {
+  return JSON.parse(localStorage.getItem("recordings")) || [];
+}
+
+function saveStoredRecordings(recordings) {
+  localStorage.setItem("recordings", JSON.stringify(recordings));
+}
+
+function blobToBase64(blob) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onloadend = () => resolve(reader.result);
+    reader.readAsDataURL(blob);
+  });
+}
+
+window.addEventListener("DOMContentLoaded", () => {
+  const recordings = getStoredRecordings();
+  recordings.forEach(renderRecording);
 });
