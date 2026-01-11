@@ -4,6 +4,10 @@ A simple web application built with **Vanilla JavaScript** that allows users to 
 
 ---
 
+## Live Link 
+
+https://samplevoicenotes.netlify.app/
+
 ## ✨ Features
 
 - 🎙️ Start / stop audio recording using the microphone
