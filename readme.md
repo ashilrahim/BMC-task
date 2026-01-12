@@ -17,7 +17,7 @@ https://samplevoicenotes.netlify.app/
 - ▶️ Playback recorded audio with native controls
 - 🗑️ Delete saved recordings
 - 📥 Download recordings using browser audio controls
-- 📱 Clean, responsive UI inspired by modern voice apps
+- 📱 Clean, responsive UI inspired by the provided design
 
 ---
 
