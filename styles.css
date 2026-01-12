@@ -12,14 +12,22 @@ body {
 }
 
 h3 {
-    font-size: 17px;
-    color: #3C3C4399;
+  font-size: 17px;
+  color: #3c3c4399;
+}
+
+.main {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 .app {
   position: relative;
   padding: 24px 32px;
   border-radius: 16px;
-  width: 650px;
+  width: 100%;
   max-width: 650px;
   height: fit-content;
   text-align: center;
@@ -29,33 +37,33 @@ h3 {
 }
 
 .searchBar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    width: 100%;
-    padding: 15px;
-    border-radius: 20px;
-    height: 50px;
-    background-color: #7676801F;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 20px;
+  height: 50px;
+  background-color: #7676801f;
 }
 
 .left {
-    display: flex;
-    gap: 5px;
-    align-items: center;
+  display: flex;
+  gap: 5px;
+  align-items: center;
 }
 
 .right {
-    width: 90px;
-    height: 36px;
-    display: flex;
-    justify-content: center;
-    gap: 5px;
-    align-items: center;
-    background-color: #FFFFFF;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-    border-radius: 30px;
+  width: 90px;
+  height: 36px;
+  display: flex;
+  justify-content: center;
+  gap: 5px;
+  align-items: center;
+  background-color: #ffffff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 30px;
 }
 
 #timer {
@@ -71,7 +79,8 @@ h3 {
 }
 .wave-container {
   position: relative;
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
   height: 80px;
   background: #e9eefb;
   border-radius: 40px;
@@ -98,18 +107,19 @@ canvas {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 360px;
+  width: 100%;
+  max-width: 360px;
   z-index: 10;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   border-radius: 40px;
-  
 }
 
 .record-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 350px;
+  width: 100%;
+  max-width: 350px;
   height: 60px;
   padding: 20px 40px;
   border: 1px solid #000;
@@ -151,7 +161,6 @@ canvas {
   margin-bottom: 8px;
 }
 
-
 .delete-btn {
   border: none;
   background: transparent;
@@ -161,4 +170,42 @@ canvas {
 
 .delete-btn:hover {
   opacity: 0.7;
+}
+
+
+@media (max-width: 480px) {
+  .app {
+    padding: 16px;
+  }
+
+  .searchBar {
+    max-width: 340px;
+    height: 44px;
+    padding: 10px;
+  }
+
+
+  .recording-section {
+    bottom: 0;
+    border-radius: 24px;
+  }
+
+  .wave-container {
+    height: 64px;
+  }
+
+  #timer {
+    font-size: 14px;
+  }
+}
+
+
+@media (max-width: 768px) {
+  .app {
+    max-width: 100%;
+  }
+
+  .recording-section {
+    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+  }
 }
