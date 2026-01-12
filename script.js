@@ -59,7 +59,7 @@ async function startRecording() {
     mediaRecorder.start();
 
     // AudioContext for waveform
-    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+    audioContext = new (window.AudioContext || window.AudioContext)();
     analyser = audioContext.createAnalyser();
     analyser.fftSize = 256;
 
@@ -141,6 +141,15 @@ function renderRecording(recording) {
   const audio = document.createElement("audio");
   audio.src = recording.audio;
   audio.controls = true;
+
+  audio.addEventListener("play", () => {
+    activeAudios.forEach((a) => {
+      if (a !== audio) {
+        a.pause();
+        a.currentTime = 0;
+      }
+    });
+  });
 
   activeAudios.push(audio);
 
