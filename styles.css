@@ -18,6 +18,7 @@ h3 {
 
 .main {
   height: 100vh;
+  width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -156,9 +157,12 @@ canvas {
 
 .recordings li {
   display: flex;
-  justify-content: center;
   align-items: center;
-  margin-bottom: 8px;
+  gap: 8px;
+}
+
+.recordings li audio {
+  flex: 1;
 }
 
 .delete-btn {
@@ -172,7 +176,6 @@ canvas {
   opacity: 0.7;
 }
 
-
 @media (max-width: 480px) {
   .app {
     padding: 16px;
@@ -183,7 +186,6 @@ canvas {
     height: 44px;
     padding: 10px;
   }
-
 
   .recording-section {
     bottom: 0;
@@ -199,13 +201,12 @@ canvas {
   }
 }
 
-
 @media (max-width: 768px) {
   .app {
     max-width: 100%;
   }
 
   .recording-section {
-    box-shadow: 0 -4px 12px rgba(0,0,0,0.1);
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
   }
 }
